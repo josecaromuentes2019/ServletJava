@@ -2,10 +2,9 @@ package form;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,28 +27,28 @@ public class FormServlet extends HttpServlet{
 		String [] roles = req.getParameterValues("roles");
 		String idioma = req.getParameter("idioma");
 		
-		List<String> errores = new ArrayList<String>();
+		Map<String, String> errores = new HashMap<String,String>();
 		
 		if(username == null || username.isBlank()) {
-			errores.add("El User name es obligatorio");
+			errores.put("username","El username es obligatorio");
 		}
 		if(email == null || !email.contains("@")) {
-			errores.add("Verificar el formato de correo");
+			errores.put("email","Verificar el formato de correo");
 		}
 		if(password == null || password.isBlank()) {
-			errores.add("Digite una contraseña");
+			errores.put("password","Digite una contraseña");
 		}
 		if(pais == null || pais.isBlank()) {
-			errores.add("Seleccione un Pais");
+			errores.put("pais","Seleccione un Pais");
 		}
 		if(lenguajes == null || Arrays.asList(lenguajes).isEmpty()) {
-			errores.add("Selecciones al menos un lenguaje de programacion");
+			errores.put("lenguajes","Selecciones al menos un lenguaje de programacion");
 		}
 		if(roles == null || Arrays.asList(roles).isEmpty()) {
-			errores.add("Selecciones al menos un rol");
+			errores.put("roles","Selecciones al menos un rol");
 		}
 		if(idioma == null) {
-			errores.add("Seleccione un idioma");
+			errores.put("idioma","Seleccione un idioma");
 		}
 		
 		if(errores.isEmpty()) {
